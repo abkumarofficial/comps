@@ -4,11 +4,9 @@ import { GoBell } from 'react-icons/go';
 function ButtonPage() {
 
   const handleClick = () => {
-    console.log('Handle Click');
   }
 
   const handleMouseEnter = () => {
-    console.log('asdfasdf');
   }
 
   return <div>
