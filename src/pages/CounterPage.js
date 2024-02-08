@@ -2,6 +2,7 @@ import Button from '../components/Button';
 import { useReducer } from 'react';
 import Panel from '../components/Panel';
 // import useCounter from '../hooks/use-counter';
+import { produce } from 'immer';
 
 const INCREMENT_COUNT = 'increment';
 const DECREMENT_COUNT = 'decrement';
@@ -12,26 +13,34 @@ const reducer = (state, action) => {
 
     switch(action.type) {
         case INCREMENT_COUNT:
-            return {
-                ...state,
-                count: state.count + 1,
-            }
+            // return {
+            //     ...state,
+            //     count: state.count + 1,
+            // }
+            state.count = state.count + 1;
+            break;
         case DECREMENT_COUNT:
-            return {
-                ...state,
-                count: state.count - 1,
-            }
+            // return {
+            //     ...state,
+            //     count: state.count - 1,
+            // }
+            state.count = state.count - 1;
+            break;
         case SET_VALUE_TO_ADD:
-            return {
-                ...state,
-                valueToAdd: action.payload,
-            }
+            // return {
+            //     ...state,
+            //     valueToAdd: action.payload,
+            // }
+            state.valueToAdd = action.payload;
+            break;
         case ADD_VALUE_TO_COUNT:
-            return {
-                ...state,
-                count: state.count + state.valueToAdd,
-                valueToAdd: 0,
-            }
+            // return {
+            //     ...state,
+            //     count: state.count + state.valueToAdd,
+            //     valueToAdd: 0,
+            // }
+            state.count += state.valueToAdd;
+            break;
         default:
         // throw new Error('Unexpected Action Type: ', + action.type); //community convetion 
         return state ;
@@ -44,7 +53,7 @@ function CounterPage({ initialCount }) {
     // const [count, setCount] = useState(initialCount);
     // const [valueToAdd, setValueToAdd] = useState(0);
 
-    const [state, dispatch] = useReducer(reducer, {
+    const [state, dispatch] = useReducer(produce(reducer), {
         count: initialCount,
         valueToAdd: 0,
     });
